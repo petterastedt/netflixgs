@@ -1,0 +1,87 @@
+@import 'variables';
+@import 'animations';
+@import 'carditem';
+@import 'modal';
+@import 'header';
+@import 'searchbar';
+@import 'footer';
+@import 'loading';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  // background: #E44D26;  /* fallback for old browsers */
+  // background: -webkit-linear-gradient(to right, #F16529, #E44D26);  /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(to right, #F16529, #E44D26); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+
+  // Alternative background:
+  // background: #000000;  /* fallback for old browsers */
+  // background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  // Alternative 2:
+  background: $backgroundColor;
+
+  box-sizing: border-box;
+  font-family: $font-base; 
+  font-size: 16px;
+}
+
+.App {
+  &-wrapper {
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    transition: 1s;
+
+    &--isBlurred {
+      height: 100vh;
+      overflow: hidden;
+      -webkit-filter: blur(2px) grayscale(50%);
+      filter: blur(3px) grayscale(50%);
+    }
+
+    &--isAnimated {
+      animation: slideUp .5s forwards;
+    }
+  }
+}
+
+.list {
+  // @include grid(1, center);
+  @include reset-list;
+
+  // @media (min-width: $breakpoint-mobile) {
+  //   @include grid(2, 60px);
+  // }
+
+  // @media (min-width: $breakpoint-tablet-horizontal) {
+  //   @include grid(4);
+  // }
+
+  display: grid;
+  justify-items: center;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+
+  // @media (min-width: $breakpoint-tablet) {
+    
+  //   grid-template-columns: repeat(3, 1fr);
+  // }
+
+  // @media (min-width: $breakpoint-tablet-horizontal) {
+    
+  // }
+}
+
+.noResults {
+  color: $textColor;
+  text-align: center;
+
+  span {
+    font-size: 20px;
+  }
+}

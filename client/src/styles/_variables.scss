@@ -1,0 +1,101 @@
+$font-base: 'Raleway', sans-serif;
+$font-heading: 'Montserrat', sans-serif;
+$font-special: 'Permanent Marker', cursive;
+
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-tablet-horizontal: 1024px;
+$breakpoint-desktop: 1260px;
+
+$backgroundColor: #2a2a2e;
+$detailsColor: #3b3b63;
+$secondaryColor: #38383d;
+$textColor: #fff;
+$textContrastColor: #000;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-heading;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: 300;
+
+  @media (min-width: $breakpoint-mobile) {
+    font-size: 70px;
+  }
+}
+
+a {
+  color: $textColor;
+  text-decoration: none;
+}
+
+.centerContainer {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.specialSpan {
+  background: $detailsColor;
+  border: 1px solid $detailsColor;
+  color: $textColor;
+  // font-family: $font-special;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 5px 10px;
+}
+
+.textSmall {
+  font-size: 14px;
+}
+
+@mixin grid(
+  $columns,
+  $alignment: flex-start,
+  $gutter-horizontal: 20px,
+  $gutter-vertical: 20px
+) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: $alignment;
+  width: 100%;
+
+  > * {
+    width: calc((#{100% / $columns}) -
+    (#{$columns - 1} / #{$columns} * #{$gutter-horizontal}));
+
+    &:nth-child(n) {
+      margin-right: $gutter-horizontal;
+      margin-top: 0;
+    }
+
+    &:nth-child(1n + #{$columns + 1}) {
+      margin-top: $gutter-vertical;
+    }
+
+    &:nth-child(#{$columns}n) {
+      margin-right: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+@mixin reset-list() {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

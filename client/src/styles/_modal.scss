@@ -1,0 +1,114 @@
+.modal {
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  left: 0;
+  justify-content: center;
+  height: 100%;
+  opacity: 0;
+  overflow: auto;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  z-index: 1;
+
+  &--isVisible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &-card {
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    color: $textColor;
+    display: flex;
+    flex-direction: column;
+    max-width: 850px;
+
+    @media (min-width: $breakpoint-mobile) {
+      flex-direction: row;
+    }
+
+    &-image {
+      object-fit: cover;
+      max-width: 300px;
+
+      @media (max-width: $breakpoint-mobile) {
+        height: 60vh;
+        margin: 0 auto;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      position: relative;
+      max-width: 550px;
+
+      @media (max-width: $breakpoint-mobile) {
+        height: 30vh;
+      }
+
+      &-close {
+        cursor: pointer;
+        font-size: 40px;
+        position: absolute;
+        right: 20px;
+        top: 0;
+        transform: rotate(45deg);
+        transition: 0.3s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      &-cardTitle {
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+
+      &-detailsWrapper {
+        display: flex;
+
+        span {
+          margin-right: 10px;
+        }
+
+        span:nth-last-child(1) {
+          margin-right: 0;
+        }
+      }
+
+      &-linksWrapper {
+        display: flex;
+
+        a {
+          margin-right: 10px;
+
+          &:nth-last-child(1) {
+            margin-right: 0;
+          }
+        }
+      }
+
+      &-flag {
+        height: 25px;
+        margin: 10px 5px 0;
+        width: 25px;
+
+        &:nth-child(1) {
+          margin-left: 0;
+        }
+
+        &:nth-last-child(1) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
