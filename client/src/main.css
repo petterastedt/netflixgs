@@ -69,28 +69,33 @@ a {
 
 .list .cardItem {
   animation: fadeIn 3s forwards;
+  display: flex;
+  flex-direction: column;
   opacity: 0;
   transition: .2s;
+  width: 300px;
   z-index: 1; }
+  @media (min-width: 480px) {
+    .list .cardItem {
+      width: 225px; } }
   .list .cardItem-cardWrapper {
     box-shadow: 10px 10px 12px -8px #000;
     position: relative;
-    transition: 0.2s;
-    width: 300px; }
+    transition: 0.2s; }
     @media (min-width: 480px) {
-      .list .cardItem-cardWrapper {
-        width: 225px; } }
-    .list .cardItem-cardWrapper:hover {
-      transform: scale(1.03); }
+      .list .cardItem-cardWrapper:hover {
+        transform: scale(1.03); } }
   .list .cardItem-imgWrapper {
     box-shadow: 10px 10px 12px -8px #000; }
   .list .cardItem-title {
     color: #fff;
+    font-size: 20px;
     font-weight: 500;
-    max-width: 215px;
     padding: 20px 0;
-    position: absolute;
     text-align: center; }
+    @media (min-width: 480px) {
+      .list .cardItem-title {
+        font-size: 16px; } }
   .list .cardItem-flags {
     bottom: 0;
     position: absolute;
@@ -107,9 +112,7 @@ a {
   .list .cardItem-poster {
     cursor: pointer;
     display: flex;
-    height: 100%;
-    object-fit: cover;
-    width: 300px; }
+    object-fit: cover; }
     @media (min-width: 480px) {
       .list .cardItem-poster {
         height: 333px;

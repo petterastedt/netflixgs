@@ -1,21 +1,25 @@
 .list .cardItem {
   animation: fadeIn 3s forwards;
+  display: flex;
+  flex-direction: column;
   opacity: 0;
   transition: .2s;
+  width: 300px;
   z-index: 1;
+
+  @media (min-width: $breakpoint-mobile) {
+    width: 225px;
+  }
 
   &-cardWrapper {
     box-shadow: 10px 10px 12px -8px #000;
     position: relative;
     transition: 0.2s;
-    width: 300px;
-
+    
     @media (min-width: $breakpoint-mobile) {
-      width: 225px;
-    }
-
-    &:hover {
-      transform: scale(1.03);
+      &:hover {
+        transform: scale(1.03);
+      }
     }
   }
 
@@ -25,11 +29,14 @@
 
   &-title {
     color: $textColor;
+    font-size: 20px;
     font-weight: 500;
-    max-width: 215px;
     padding: 20px 0;
-    position: absolute;
     text-align: center;
+
+    @media (min-width: $breakpoint-mobile) {
+      font-size: 16px;
+    }
   }
 
   &-flags {
@@ -53,9 +60,7 @@
   &-poster {
     cursor: pointer;
     display: flex;
-    height: 100%;
     object-fit: cover;
-    width: 300px;
 
     @media (min-width: $breakpoint-mobile) {
       height: 333px;
