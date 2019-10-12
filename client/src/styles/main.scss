@@ -38,10 +38,13 @@ body {
     transition: 1s;
 
     &--isBlurred {
+      filter: blur(3px) grayscale(50%);
       height: 100vh;
       overflow: hidden;
-      -webkit-filter: blur(2px) grayscale(50%);
-      filter: blur(3px) grayscale(50%);
+
+      @media (min-width: $breakpoint-mobile) {
+        overflow: visible;
+      }
     }
 
     &--isAnimated {

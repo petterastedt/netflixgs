@@ -42,7 +42,6 @@ exports.findByIdAndUpdate = (req, res) => {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        console.log("Response: ", data)
         Item.findByIdAndUpdate(req.params.itemId, {
             $set: {
                 actors: data.Actors,
@@ -65,21 +64,3 @@ exports.findByIdAndUpdate = (req, res) => {
     })
     .catch(err => console.log("Error: ", err))
 };
-
-// exports.findByIdAndUpdate = (req, res) => {
-//     Item.findByIdAndUpdate(req.params.itemId,  { $set: {
-//         actors: req.body.Actors,
-//         director: req.body.Director,
-//         genre: req.body.Genre,
-//         imdbId: req.body.imdbID,
-//         imdbRating: req.body.imdbRating,
-//         plot: req.body.Plot,
-//         poster: req.body.Poster,
-//         runtime: req.body.Runtime,
-//         type: req.body.Type
-//         }
-//     }, {new: true})
-//     .then(item => {
-//         res.json(item)
-//     })
-// };

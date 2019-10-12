@@ -5,7 +5,7 @@
 
   &-dot {
     animation: pulse 2s infinite;
-    background: #F16529;
+    background: $detailsColor;
     border-radius: 50%;
     box-shadow: 0 0 0 rgba(255,255,255, 0.4);
     display: block;

@@ -17,9 +17,9 @@ const [animateHeader, setAnimateHeader] = useState(false);
 const [dbCountry, setDbCountry] = useState({});
 
 useEffect(() => {
-    setDbCountry({ country: "Global", code: ""})
-    setNoResults(false)
-  }, [])
+  setDbCountry({ country: "Global", code: ""})
+  setNoResults(false)
+}, [])
 
 const setClickedItem = (clickedItem) => {
   setIsClickedItem(clickedItem)
@@ -40,9 +40,9 @@ const getResults = async (query) => { // call function with query
       searchString: query,
       country: dbCountry.code
     })
-    })
-    .then(response => response.json())
-    .catch(err => console.log("Error: ", err))
+  })
+  .then(response => response.json())
+  .catch(err => console.log("Error: ", err))
 
   const metaCheck = results.map(async res => { // map through results
     if (res.imdbId || res.imdbId === null) { // if result has metadata (ex. rating)
@@ -54,6 +54,7 @@ const getResults = async (query) => { // call function with query
       return updatedItem
     }
   })
+
   const output = await Promise.all(metaCheck)
   console.log("resultat :", output)
 
@@ -93,7 +94,7 @@ const updateItem = async (query) => {
   .catch(err => console.log("Error: ", err))
 
   return updateItemDb
-}
+} 
 
   return (
     <div className="App">
