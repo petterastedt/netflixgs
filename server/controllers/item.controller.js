@@ -25,10 +25,13 @@ exports.find = (req, res) => {
     let query = {}
     if (req.body.country) query = {$text: {$search: req.body.searchString }, countries: { $in: req.body.country } }
     else query = {$text: {$search: req.body.searchString }}
-    console.log("data:", req.body.searchString, req.body.country)
-    Item.find(query).limit(15)
+    Item.find(query)
+    .sort({title: 1}) 
+    .limit(30)
     .then(items => {
-        res.json(items)
+        const first = req.body.searchString.charAt(0).toUpperCase() + req.body.searchString.slice(1)
+
+        res.json(items.sort((a,b) => a.title.includes(first) ? -1 : b.title.includes(first) ? 1 : 0))
     })
     .catch(err => {
         res.status(500).send({

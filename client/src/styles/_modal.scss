@@ -21,22 +21,27 @@
 
   &-card {
     background-color: rgba(0,0,0,0.8);
+    border-radius: 5px;
     color: $textColor;
     display: flex;
     flex-direction: column;
-    max-width: 850px;
+    padding-top: 200px;
 
     @media (min-width: $breakpoint-mobile) {
       flex-direction: row;
+      margin: 0 20px;
+      max-width: 850px;
+      padding: 0;
     }
 
     &-image {
       object-fit: cover;
-      max-width: 300px;
+      padding: 5px 0 5px 5px;
 
       @media (max-width: $breakpoint-mobile) {
+        object-fit: contain;
         height: 60vh;
-        margin: 0 auto;
+        width: 100%; 
       }
     }
 
@@ -45,11 +50,15 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 20px;
-      position: relative;
-      max-width: 550px;
+      position: static;
 
-      @media (max-width: $breakpoint-mobile) {
-        height: 30vh;
+      @media (min-width: $breakpoint-mobile) {
+        max-width: 550px;
+        position: relative;
+      }
+
+      &-cast {
+        padding-top: 20px;
       }
 
       &-close {

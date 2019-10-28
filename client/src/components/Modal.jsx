@@ -21,12 +21,22 @@ export default function Modal(props) {
               <span className="modal-card-content-imdbRating specialSpan">imdb: {props.itemDetails.imdbRating}</span>
             </div>
             <div className="modal-card-content-cast">
-              <p className="modal-card-content-cast-director">{props.itemDetails.director}</p>
-              <p className="modal-card-content-cast-actors">{props.itemDetails.actors}</p>
+              <div className="modal-card-content-cast-director">
+                <strong>Directed by: </strong>
+                {props.itemDetails.director}
+              </div>
+              <br />
+              <div className="modal-card-content-cast-actors">
+                <strong>Cast: </strong>
+                {props.itemDetails.actors}
+              </div>
+              <br />
             </div>
-            <p className="modal-card-content-plot">
-              {props.itemDetails.plot}
-            </p>
+            <div className="modal-card-content-plot">
+             <strong>Plot: </strong>
+             {props.itemDetails.plot}
+            </div>
+            <br />
           </div>
           <div className="modal-card-bottomWrapper">
             <div className="modal-card-content-linksWrapper">

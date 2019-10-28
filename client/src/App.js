@@ -56,6 +56,7 @@ const getResults = async (query) => { // call function with query
   })
 
   const output = await Promise.all(metaCheck)
+
   console.log("resultat :", output)
 
   if (output.length === 0) {
@@ -71,6 +72,7 @@ const getResults = async (query) => { // call function with query
 
 const updateItem = async (query) => {
   let formatedQuery
+  
   if (query.title.endsWith("A")) {
       formatedQuery = query.title.substring(0, query.title.length - 3).split(' ').join('+')
   } else if (query.title.endsWith("The")) {

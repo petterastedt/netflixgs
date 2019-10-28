@@ -138,30 +138,37 @@ a {
     pointer-events: auto; }
   .modal-card {
     background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
     color: #fff;
     display: flex;
     flex-direction: column;
-    max-width: 850px; }
+    padding-top: 200px; }
     @media (min-width: 480px) {
       .modal-card {
-        flex-direction: row; } }
+        flex-direction: row;
+        margin: 0 20px;
+        max-width: 850px;
+        padding: 0; } }
     .modal-card-image {
       object-fit: cover;
-      max-width: 300px; }
+      padding: 5px 0 5px 5px; }
       @media (max-width: 480px) {
         .modal-card-image {
+          object-fit: contain;
           height: 60vh;
-          margin: 0 auto; } }
+          width: 100%; } }
     .modal-card-content {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 20px;
-      position: relative;
-      max-width: 550px; }
-      @media (max-width: 480px) {
+      position: static; }
+      @media (min-width: 480px) {
         .modal-card-content {
-          height: 30vh; } }
+          max-width: 550px;
+          position: relative; } }
+      .modal-card-content-cast {
+        padding-top: 20px; }
       .modal-card-content-close {
         cursor: pointer;
         font-size: 40px;
