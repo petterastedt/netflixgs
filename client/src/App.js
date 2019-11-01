@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './main.css';
+import api from './api';
 import CardItem from './components/CardItem'
 import Header from './components/Header'
 import Modal from './components/Modal'
@@ -8,95 +9,65 @@ import Loading from './components/Loading'
 
 const App = () => {
 
-const [searchResults, setSearchResults] = useState([]);
-const [isLoading, setIsLoading] = useState(false);
-const [noResults, setNoResults] = useState(false);
-const [modalIsVisible, setModalIsVisible] = useState(false);
-const [isClickedItem, setIsClickedItem] = useState({});
-const [animateHeader, setAnimateHeader] = useState(false);
-const [dbCountry, setDbCountry] = useState({});
+  const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [noResults, setNoResults] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [isClickedItem, setIsClickedItem] = useState({});
+  const [animateHeader, setAnimateHeader] = useState(false);
+  const [dbCountry, setDbCountry] = useState({});
 
-useEffect(() => {
-  setDbCountry({ country: "Global", code: ""})
-  setNoResults(false)
-}, [])
+  useEffect(() => {
+    setDbCountry({ country: "Global", code: ""})
+    setNoResults(false)
+  }, [])
 
-const setClickedItem = (clickedItem) => {
-  setIsClickedItem(clickedItem)
-  setModalIsVisible(!modalIsVisible)
-}
-
-const setSelectedCountry = (selectedCountry) => {
-  setDbCountry(selectedCountry)
-}
-
-const getResults = async (query) => { // call function with query
-  setNoResults(false)
-  setIsLoading(true)
-  const results = await fetch('http://localhost:5000/search', { // get results from local database
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      searchString: query,
-      country: dbCountry.code
-    })
-  })
-  .then(response => response.json())
-  .catch(err => console.log("Error: ", err))
-
-  const metaCheck = results.map(async res => { // map through results
-    if (res.imdbId || res.imdbId === null) { // if result has metadata (ex. rating)
-      console.log('Item up to date!')
-      return res
-    } else {
-      console.log('Update db item')
-      const updatedItem = await updateItem(res) // call updateItem
-      return updatedItem
-    }
-  })
-
-  const output = await Promise.all(metaCheck)
-
-  console.log("resultat :", output)
-
-  if (output.length === 0) {
-    setNoResults(true)
-    setSearchResults([])
-  } else {
-    setAnimateHeader(true)
-    setSearchResults(output)
+  const setClickedItem = (clickedItem) => {
+    setIsClickedItem(clickedItem)
+    setModalIsVisible(!modalIsVisible)
   }
 
-  setIsLoading(false)
-}
-
-const updateItem = async (query) => {
-  let formatedQuery
-  
-  if (query.title.endsWith("A")) {
-      formatedQuery = query.title.substring(0, query.title.length - 3).split(' ').join('+')
-  } else if (query.title.endsWith("The")) {
-      formatedQuery = query.title.substring(0, query.title.length - 5).split(' ').join('+')
-  } else {
-      formatedQuery = query.title.split(' ').join('+')
+  const setSelectedCountry = (selectedCountry) => {
+    setDbCountry(selectedCountry)
   }
- 
-  const updateItemDb = await fetch(`http://localhost:5000/items/${query._id}`, {
-      method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          query: query,
-          formatedQuery: formatedQuery
+
+  const getResults = async (query) => {
+    setNoResults(false) 
+    setIsLoading(true)
+
+    let output
+
+    try {
+      const localResults = await api.getLocalResults(query)
+
+      const metaCheck = localResults.map(async res => {
+        if (res.imdbId || res.imdbId === null) {
+          console.log('Item up to date!') 
+          return res
+        } else {
+          console.log('Update db item') 
+          const updatedItem = await api.updateItem(res)     
+          return updatedItem
+        }
       })
-  })
-  .then(response => response.json()) 
-  .then(data => { return data })
-  .catch(err => console.log("Error: ", err))
 
-  return updateItemDb
-} 
+      output = await Promise.all(metaCheck)
+
+    } catch (error) {
+      console.log('Error', error)
+    }
+
+    console.log("results :", output) 
+    if (output.length < 1) {
+      setNoResults(true) 
+      setSearchResults([])
+    } else {
+      setAnimateHeader(true)
+      setSearchResults(output)
+    }
+
+    setIsLoading(false)
+  }
 
   return (
     <div className="App">
