@@ -16,15 +16,17 @@ exports.findAll = (req, res) => {
         res.json(items)
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving notes."
+            message: err.message || "Some error occurred while retrieving items"
         });
     });
 };
 
 exports.find = (req, res) => {
     let query = {}
+    
     if (req.body.country) query = {$text: {$search: req.body.searchString }, countries: { $in: req.body.country } }
     else query = {$text: {$search: req.body.searchString }}
+    
     Item.find(query)
     .sort({title: 1}) 
     .limit(30)
@@ -35,13 +37,20 @@ exports.find = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving notes."
+            message: err.message || "Some error occurred while retrieving items from the database"
         });
     });
 };
 
 exports.findByIdAndUpdate = (req, res) => {
-    const url =`http://www.omdbapi.com/?t=${req.body.formatedQuery}&y=${req.body.query.year}&apikey=${process.env.API_KEY}`
+    const query = req.body.query
+    let formattedQuery
+    
+    if (query.title.endsWith("A")) formattedQuery = query.title.substring(0, query.title.length - 3).split(' ').join('+')
+    else if (query.title.endsWith("The")) formattedQuery = query.title.substring(0, query.title.length - 5).split(' ').join('+')
+    else formattedQuery = query.title.split(' ').join('+')
+    
+    const url =`http://www.omdbapi.com/?t=${formattedQuery}&y=${query.year}&apikey=${process.env.API_KEY}`
     fetch(url)
     .then(response => response.json())
     .then(data => {
