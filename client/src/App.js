@@ -63,7 +63,9 @@ const App = () => {
       setSearchResults([])
     } else {
       setAnimateHeader(true)
-      setSearchResults(output)
+      setTimeout(() => {
+        setSearchResults(output)
+      }, 750);
     }
 
     setIsLoading(false)

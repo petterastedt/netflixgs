@@ -53,8 +53,7 @@ a {
 
 @keyframes slideUp {
   0% {
-    margin-top: 50vh;
-    transform: translateY(-50%); }
+    margin-top: 50vh; }
   100% {
     margin-top: 0;
     transform: translateY(0%); } }
@@ -68,7 +67,7 @@ a {
     transform: translateY(-50%); } }
 
 .list .cardItem {
-  animation: fadeIn 3s forwards;
+  animation: fadeIn 0.5s forwards;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -284,7 +283,7 @@ body {
       .App-wrapper--isBlurred {
         overflow: visible; } }
   .App-wrapper--isAnimated {
-    animation: slideUp .5s forwards; }
+    animation: slideUp 0.5s forwards; }
 
 .list {
   list-style: none;
