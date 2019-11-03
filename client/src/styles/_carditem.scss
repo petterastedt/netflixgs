@@ -24,7 +24,21 @@
   }
 
   &-imgWrapper {
+    align-items: center;
     box-shadow: 10px 10px 12px -8px #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+
+    &--hasNoPoster {
+      height: 450px;
+      width: 300px;
+
+      @media (min-width: $breakpoint-mobile) {
+        height: 333px;
+        width: 225px;
+      }
+    }
   }
 
   &-title {
@@ -58,7 +72,6 @@
   }
 
   &-poster {
-    cursor: pointer;
     display: flex;
     object-fit: cover;
 
@@ -66,5 +79,9 @@
       height: 333px;
       width: 225px;
     }
+  }
+
+  &-noPoster {
+    color: $textColor;
   }
 }

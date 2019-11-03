@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function CardItem(props) {
+
+  const [hasPoster, setHasPoster] = useState(false);
+
+  useEffect(() => {
+    if (!props.cardData.poster || !props.cardData.poster.startsWith("http")) setHasPoster(false)
+    else setHasPoster(true)
+  }, [props.cardData])
 
   return (
     <li className="cardItem">
       <div className="cardItem-cardWrapper">
-        <div className="cardItem-imgWrapper">
+        <div
+          className={`cardItem-imgWrapper ${!hasPoster && "cardItem-imgWrapper--hasNoPoster"}`}
+          onClick={() => props.setClickedItem(props.cardData)}>
+          {hasPoster ?
           <img 
             className="cardItem-poster"
-            src={props.cardData.poster ? props.cardData.poster : `https://via.placeholder.com/300x450?text=No+poster+found`}
+            src={props.cardData.poster}
             alt={`${props.cardData.title} movie poster`}
-            onClick={() => props.setClickedItem(props.cardData)}
           />
+          : <div className="cardItem-noPoster">No poster found <span role="img" aria-label="disappointed smiley face">😞</span></div>
+          }
           <span className="cardItem-flags">
           {props.cardData.countries.map((item, i) =>
             <img src={require(`../assets/icons/${item}.svg`)}
